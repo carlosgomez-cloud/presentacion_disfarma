@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Jeeves × Disfarma — Resumen de la reunión</title>
+<style>
+  :root{
+    --bg:#0B0B0E;
+    --bg-soft:#111114;
+    --card:#17171C;
+    --card2:#1C1C22;
+    --border:#26262E;
+    --gold:#D1AB6A;
+    --gold-deep:#C9A227;
+    --text:#F5F5F7;
+    --muted:#9C9CA6;
+    --green:#3ECF8E;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:"Segoe UI","Calibri",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:var(--gold);}
+  img{max-width:100%;display:block;}
+
+  /* ---------- Password gate ---------- */
+  #gate{
+    position:fixed;inset:0;z-index:50;background:radial-gradient(circle at 50% 20%, #17171c 0%, #0b0b0e 65%);
+    display:flex;align-items:center;justify-content:center;padding:24px;
+  }
+  .gate-card{
+    width:100%;max-width:400px;background:var(--card);border:1px solid var(--border);border-radius:18px;
+    padding:36px 32px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.45);
+  }
+  .gate-card img.wordmark{height:34px;width:auto;margin:0 auto 22px;}
+  .gate-card h2{font-size:20px;margin:0 0 8px;font-weight:600;}
+  .gate-card p{color:var(--muted);font-size:14px;line-height:1.5;margin:0 0 22px;}
+  .gate-card input{
+    width:100%;background:#0F0F13;border:1px solid var(--border);border-radius:10px;color:var(--text);
+    padding:13px 14px;font-size:15px;margin-bottom:12px;outline:none;text-align:center;letter-spacing:1px;
+  }
+  .gate-card input:focus{border-color:var(--gold);}
+  .gate-card button{
+    width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:#141400;border:none;
+    border-radius:10px;padding:13px 14px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.2px;
+  }
+  .gate-card button:hover{opacity:.92;}
+  #pwError{color:#ff8686;font-size:13px;margin:12px 0 0;display:none;}
+  .gate-hint{margin-top:18px;font-size:12px;color:#5c5c66;}
+
+  /* ---------- Content ---------- */
+  #content{display:none;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px;}
+
+  header.top{padding:26px 0;border-bottom:1px solid var(--border);}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+  header.top img.wordmark{height:26px;width:auto;}
+  .client-chip{
+    background:#fff;border-radius:10px;padding:8px 16px;display:flex;align-items:center;
+  }
+  .client-chip img{height:26px;width:auto;}
+
+  .hero{padding:64px 0 46px;text-align:center;background:
+    radial-gradient(ellipse at 50% -10%, rgba(209,171,106,.16), transparent 55%);}
+  .hero .eyebrow{
+    display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:12.5px;font-weight:600;
+    letter-spacing:.4px;padding:6px 16px;border-radius:999px;margin-bottom:22px;
+  }
+  .hero h1{font-size:40px;line-height:1.15;margin:0 0 16px;font-weight:700;}
+  .hero h1 span{color:var(--gold);}
+  .hero p.sub{color:var(--muted);font-size:16.5px;max-width:640px;margin:0 auto;line-height:1.6;}
+  .pillrow{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:30px;}
+  .pill{
+    background:var(--card);border:1px solid var(--border);border-radius:999px;padding:9px 18px;font-size:13.5px;color:var(--muted);
+  }
+  .pill b{color:var(--text);}
+
+  section{padding:52px 0;border-top:1px solid var(--border);}
+  .sec-head{margin-bottom:30px;}
+  .sec-tag{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin:0 0 8px;}
+  .sec-title{font-size:26px;font-weight:700;margin:0;}
+  .sec-desc{color:var(--muted);font-size:15px;margin:10px 0 0;max-width:680px;line-height:1.6;}
+
+  .grid{display:grid;gap:16px;}
+  .grid.cols-2{grid-template-columns:repeat(2,1fr);}
+  .grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  @media(max-width:760px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr;} .hero h1{font-size:30px;}}
+
+  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:22px 22px;}
+  .card .ic{font-size:22px;margin-bottom:12px;}
+  .card h3{font-size:16px;margin:0 0 8px;font-weight:700;}
+  .card p{color:var(--muted);font-size:14px;line-height:1.55;margin:0;}
+  .card .tag{display:inline-block;font-size:11px;color:var(--gold);border:1px solid #3a3120;background:rgba(209,171,106,.08);
+    padding:3px 9px;border-radius:999px;margin-bottom:10px;font-weight:600;}
+
+  .stat{background:var(--card2);border:1px solid var(--border);border-radius:14px;padding:22px;text-align:center;}
+  .stat .num{font-size:28px;font-weight:800;color:var(--gold);margin-bottom:6px;}
+  .stat .lbl{font-size:13px;color:var(--muted);line-height:1.4;}
+
+  .qa-list{display:flex;flex-direction:column;gap:12px;}
+  .qa{
+    display:flex;gap:14px;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--gold);
+    border-radius:10px;padding:16px 18px;
+  }
+  .qa .n{color:var(--gold);font-weight:800;font-size:14px;min-width:22px;}
+  .qa p{margin:0;font-size:14.5px;color:var(--text);line-height:1.55;}
+  .qa p b{color:var(--gold);}
+
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);}
+  .step:last-child{border-bottom:none;}
+  .step .dot{width:10px;height:10px;border-radius:50%;background:var(--gold);margin-top:6px;flex:none;}
+  .step h4{margin:0 0 4px;font-size:15px;font-weight:700;}
+  .step p{margin:0;color:var(--muted);font-size:14px;line-height:1.55;}
+  .step .who{display:inline-block;font-size:11px;color:#0f0f0f;background:var(--gold);border-radius:999px;padding:2px 9px;margin-left:8px;font-weight:700;vertical-align:middle;}
+
+  footer{padding:56px 0 60px;border-top:1px solid var(--border);text-align:center;}
+  footer img.lion{height:40px;width:auto;margin:0 auto 18px;}
+  footer h3{font-size:22px;margin:0 0 10px;}
+  footer p{color:var(--muted);font-size:14.5px;margin:0 0 22px;}
+  .contact-card{
+    display:inline-flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);
+    border-radius:14px;padding:16px 22px;text-align:left;
+  }
+  .contact-card .avatar{
+    width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-deep));
+    display:flex;align-items:center;justify-content:center;font-weight:800;color:#141400;font-size:17px;flex:none;
+  }
+  .contact-card div h4{margin:0;font-size:15px;}
+  .contact-card div p{margin:2px 0 0;font-size:13px;color:var(--muted);}
+  .foot-note{margin-top:34px;font-size:12px;color:#4c4c56;}
+</style>
+</head>
+<body>
+
+  <!-- PASSWORD GATE -->
+  <div id="gate">
+    <div class="gate-card">
+      <img class="wordmark" src="jeeves-wordmark.png" alt="Jeeves">
+      <h2>Presentación privada</h2>
+      <p>Este resumen fue preparado para Disfarma. Ingresa la clave que te compartió Carlos Gómez para continuar.</p>
+      <input type="password" id="pw" placeholder="Clave de acceso" autocomplete="off">
+      <button onclick="checkPw()">Ingresar</button>
+      <p id="pwError">Clave incorrecta, intenta de nuevo.</p>
+      <p class="gate-hint">Jeeves · Colombia</p>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div id="content">
+
+    <header class="top">
+      <div class="wrap">
+        <img class="wordmark" src="jeeves-wordmark.png" alt="Jeeves">
+        <div class="client-chip"><img src="disfarma-logo.png" alt="Disfarma"></div>
+      </div>
+    </header>
+
+    <section class="hero" style="border-top:none;padding-top:64px;">
+      <div class="wrap">
+        <span class="eyebrow">Videollamada · 21 de septiembre de 2026</span>
+        <h1>Resumen de nuestra conversación <span>Jeeves × Disfarma</span></h1>
+        <p class="sub">Preparado para Ximena Alexandra Atuesta Robledo, Directora Financiera de Disfarma, a partir de la reunión sostenida hoy con Carlos Gómez (Jeeves). Reúne los temas tratados, cómo el portafolio de Jeeves responde a cada uno, y las preguntas que quedaron abiertas para ajustar la propuesta a la medida.</p>
+        <div class="pillrow">
+          <div class="pill"><b>37 días</b> sin intereses</div>
+          <div class="pill"><b>1% cashback</b> primeros 6 meses</div>
+          <div class="pill"><b>0%</b> 4×1000 en pagos Jeeves</div>
+          <div class="pill">Integración <b>Ofima</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="sec-tag">Lo que conversamos hoy</p>
+          <h2 class="sec-title">Temas tratados en la reunión</h2>
+          <p class="sec-desc">Con base en lo que Ximena compartió sobre cómo opera hoy la tesorería de Disfarma.</p>
+        </div>
+        <div class="grid cols-2">
+          <div class="card">
+            <div class="ic">🧾</div>
+            <h3>Legalización de gastos y viáticos</h3>
+            <p>Hoy la gestionan con Tiquelia, una herramienta que funciona bien pero está desarticulada del resto de los procesos financieros. Buscan centralizar esto en una sola plataforma.</p>
+          </div>
+          <div class="card">
+            <div class="ic">💸</div>
+            <h3>Pagos a proveedores</h3>
+            <p>Actualmente usan a Credit One Capital como fiduciaria para dispersar pagos, lo que les permite eficiencia en el 4×1000, pero implica pasar por ACH y procesos de conciliación más lentos — clave para sus descuentos por pronto pago.</p>
+          </div>
+          <div class="card">
+            <div class="ic">🔗</div>
+            <h3>Integración contable con Ofima</h3>
+            <p>Disfarma usa Ofima como ERP. Se plantearon dos caminos de integración: carga vía archivo CSV, o una API desarrollada por el equipo de TI de Disfarma para automatizar la contabilización.</p>
+          </div>
+          <div class="card">
+            <div class="ic">💳</div>
+            <h3>Flexibilidad en tarjetas corporativas</h3>
+            <p>Interés en definir cupos por frecuencia (diario, semanal, mensual o único) y restringir categorías de comercio, pensando en el control de cajas menores de los nuevos puntos de dispensación.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="sec-tag">Portafolio Jeeves</p>
+          <h2 class="sec-title">Cómo Jeeves responde a cada reto</h2>
+        </div>
+        <div class="grid cols-3">
+          <div class="card">
+            <span class="tag">Jeeves Pay</span>
+            <h3>Dispersión a proveedores</h3>
+            <p>Pagos directos a cuentas bancarias desde un cupo de crédito, sin depender solo de la fiduciaria ni de los tiempos de ACH.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Jeeves Cards</span>
+            <h3>Tarjetas corporativas configurables</h3>
+            <p>Cupos por frecuencia y restricción por categoría de comercio, con control por equipo o punto de dispensación.</p>
+          </div>
+          <div class="card">
+            <span class="tag">Legalización IA</span>
+            <h3>Agente por WhatsApp</h3>
+            <p>Solicita el soporte de cada gasto y lo asocia automáticamente a la transacción, quitando la carga operativa manual.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="sec-tag">Condiciones conversadas hoy</p>
+          <h2 class="sec-title">Eficiencia financiera</h2>
+        </div>
+        <div class="grid cols-3">
+          <div class="stat"><div class="num">37 días</div><div class="lbl">de financiación sin intereses</div></div>
+          <div class="stat"><div class="num">1%</div><div class="lbl">cashback en tarjeta, primeros 6 meses</div></div>
+          <div class="stat"><div class="num">0%</div><div class="lbl">4×1000 en pagos hechos vía Jeeves</div></div>
+          <div class="stat"><div class="num">2.3%</div><div class="lbl">tasa mensual variable, proporcional al uso diario — negociable según volumen</div></div>
+          <div class="stat"><div class="num">CSV / API</div><div class="lbl">dos rutas de integración con Ofima</div></div>
+          <div class="stat"><div class="num">Sin garantía</div><div class="lbl">inmobiliaria requerida</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="sec-tag">Nos falta afinar</p>
+          <h2 class="sec-title">Para ajustar la propuesta a la medida de Disfarma</h2>
+          <p class="sec-desc">Estas son las preguntas que quedaron abiertas hoy — con esta información podemos dimensionar cupos, número de tarjetas y la tasa preferencial.</p>
+        </div>
+        <div class="qa-list">
+          <div class="qa"><div class="n">1</div><p><b>¿Qué monto mensual estiman manejar con tarjetas corporativas Jeeves</b>, y qué monto a través de Jeeves Pay (pagos a proveedores)?</p></div>
+          <div class="qa"><div class="n">2</div><p><b>¿Cuántas tarjetas corporativas</b> necesitarían inicialmente — por punto de dispensación, área o caja menor?</p></div>
+          <div class="qa"><div class="n">3</div><p><b>¿Cuántos usuarios</b> tendrían acceso a la plataforma Jeeves?</p></div>
+          <div class="qa"><div class="n">4</div><p>Entre la integración vía <b>CSV o API</b> con Ofima, ¿cuál prefiere validar primero el equipo de TI?</p></div>
+          <div class="qa"><div class="n">5</div><p>¿El cupo se evalúa <b>por NIT individual o de forma global</b>, si aplica para más de una razón social?</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="sec-tag">Próximos pasos</p>
+          <h2 class="sec-title">Compromisos y siguiente revisión</h2>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="dot"></div><div><h4>Documentación técnica de la integración <span class="who">Carlos</span></h4><p>Se comparte antes del viernes.</p></div></div>
+          <div class="step"><div class="dot"></div><div><h4>Validar pago con cheque a nombre de Disfarma <span class="who">Carlos</span></h4><p>Para confirmar si mitiga el impacto del 4×1000 en esta figura puntual.</p></div></div>
+          <div class="step"><div class="dot"></div><div><h4>Tasa preferencial ajustada <span class="who">Carlos</span></h4><p>Propuesta con condiciones ajustadas al volumen de Disfarma, una vez se confirmen los montos.</p></div></div>
+          <div class="step"><div class="dot"></div><div><h4>Revisión con el equipo de Disfarma <span class="who">Ximena</span></h4><p>Analiza la información antes de salir de vacaciones y deja instrucciones a su equipo para avanzar en su regreso.</p></div></div>
+          <div class="step"><div class="dot"></div><div><h4>Sesión conjunta de seguimiento</h4><p>Estimada para el 8 o 9 de octubre de 2026.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <img class="lion" src="jeeves-lion-icon.png" alt="Jeeves">
+        <h3>¿Listo para avanzar?</h3>
+        <p>Quedo a tu disposición para resolver dudas y coordinar los próximos pasos.</p>
+        <div class="contact-card">
+          <div class="avatar">CG</div>
+          <div>
+            <h4>Carlos Gómez</h4>
+            <p>Senior Enterprise AE · Jeeves Colombia</p>
+            <p>carlos.gomez@tryjeeves.com · +57 316 480 1023</p>
+          </div>
+        </div>
+        <p class="foot-note">Documento privado preparado para Disfarma · Jeeves Colombia · Septiembre 2026</p>
+      </div>
+    </footer>
+
+  </div>
+
+<script>
+  function checkPw(){
+    var val = document.getElementById('pw').value.trim().toLowerCase();
+    if(val === 'disfarma2026'){
+      document.getElementById('gate').style.display = 'none';
+      document.getElementById('content').style.display = 'block';
+      try{ sessionStorage.setItem('jeeves_disfarma_ok','1'); }catch(e){}
+    } else {
+      document.getElementById('pwError').style.display = 'block';
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    try{
+      if(sessionStorage.getItem('jeeves_disfarma_ok') === '1'){
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('content').style.display = 'block';
+      }
+    }catch(e){}
+    var pwInput = document.getElementById('pw');
+    pwInput.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ checkPw(); } });
+  });
+</script>
+
+</body>
+</html>
